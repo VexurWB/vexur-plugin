@@ -1,9 +1,9 @@
 ---
 name: conversations
-description: "Read and reply to Messenger, Instagram, WhatsApp and SMS conversations, assign and triage them, pause the bot on one thread, switch auto-replies on per channel, write keyword rules, build and publish Auto Reply journeys, and read reply metrics for a campaign."
+description: "Read and reply to Messenger, Instagram, WhatsApp and SMS conversations, assign and triage them, pause the bot on one thread, switch auto-replies on per channel, write keyword rules, build and publish Auto Reply journeys, and read reply metrics for a campaign. Use when the user mentions DMs, comments, the inbox, replies or auto-replies."
 ---
 
-> Vexur's `conversations` playbook, version 2. With the Vexur connector connected, call `get_skill` with key `conversations` first and follow that live version wherever the two differ.
+> Vexur's `conversations` playbook, version 3. With the Vexur connector connected, call `get_skill` with key `conversations` first and follow that live version wherever the two differ.
 
 # Run the inbox and auto-replies after launch
 
@@ -47,7 +47,7 @@ Everything else here is reading or internal inbox state (assign, triage, pause) 
 - Create it DISABLED (`create_auto_reply_rule` without `enable`), then `preview_auto_reply` with a message a customer would actually send to see what fires, then enable it with `update_auto_reply_rule` `enabled: true` once the user has approved the copy.
 - `reply_variants` rotate; give two or three so replies never look canned. `public_reply_variants` are the public comment text on comment rules (text only; attachments go in the private reply).
 - `hub_campaign_id` on a rule is a reporting link: `get_campaign_readiness` and `get_campaign_conversations` read it. Attach or detach later with `attach_auto_reply_to_campaign`.
-- Delete only when asked; `enabled: false` keeps the rule and its history.
+- `list_auto_reply_rules` and `list_auto_reply_journeys` show what already exists; read them before creating another. Delete with `delete_auto_reply_rule` only when asked; `enabled: false` keeps the rule and its history.
 
 ## Auto-replies: journeys
 - A journey is a workflow on the auto_reply surface: one trigger (`social_dm_received`, `social_comment_received`, `social_link_clicked`, `sms_received`, `whatsapp_received`) plus an ordered chain of actions. Read `list_workflow_triggers` and `list_workflow_actions` first and use their ids and `config_fields` names; the tools refuse a key that is not in the catalogue, because the dispatcher would otherwise match nothing.

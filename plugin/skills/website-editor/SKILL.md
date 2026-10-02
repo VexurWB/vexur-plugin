@@ -1,9 +1,9 @@
 ---
 name: website-editor
-description: "Change the wording, images, pages or styling of the customer's real website without them needing GitHub. Read and edit the file snapshot; the customer checks the change in Website Lab Preview or a preview link, then publishes it from Website Lab."
+description: "Change the wording, images, pages or styling of the customer's real website without them needing GitHub. Read and edit the file snapshot; the customer checks the change in Website Lab Preview or a preview link, then publishes it from Website Lab. Use when the user wants anything on their own website changed or checked."
 ---
 
-> Vexur's `website-editor` playbook, version 3. With the Vexur connector connected, call `get_skill` with key `website-editor` first and follow that live version wherever the two differ.
+> Vexur's `website-editor` playbook, version 4. With the Vexur connector connected, call `get_skill` with key `website-editor` first and follow that live version wherever the two differ.
 
 # Website: edit the customer's site and preview the change
 

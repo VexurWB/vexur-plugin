@@ -3,7 +3,7 @@ name: task-router
 description: "Start here: routes any Vexur task to the right area playbook and carries the shared conventions (draft, schedule, publish and launch verbs, Perth-default times, and what each connection may publish). Use first whenever the owning playbook is not obvious."
 ---
 
-> Vexur's `task-router` playbook, version 15. With the Vexur connector connected, call `get_skill` with key `task-router` first and follow that live version wherever the two differ.
+> Vexur's `task-router` playbook, version 16. With the Vexur connector connected, call `get_skill` with key `task-router` first and follow that live version wherever the two differ.
 
 # Start here: routing and conventions
 
@@ -24,6 +24,7 @@ First call on any Vexur task when the owning playbook is not obvious, and the ho
 - Blog posts in the Website Lab blog CMS (drafting, templates, scheduling, releasing): `get_skill` blog. `launch_campaign` never publishes blog drafts; release them with `publish_blog_post` or from the blog editor in the app.
 - Newsletter issues and campaign emails to a list (drafting, editing, audience count, performance): `get_skill` newsletter-email. The send itself stays a human action in the app.
 - Working a shift as one of the organisation's AI roles (clock in, backlog, proposals, lessons, report, clock out): `get_skill` org-role.
+- No playbook yet, so read each tool's own description and confirm with the user before any write: the team Knowledge vault (`search_knowledge`, `get_knowledge_note`, `create_knowledge_note`), client documents and e-signature (`list_client_documents`, `create_document_draft`, `request_document_signature`), invoices and expenses (`list_invoices`, `create_invoice_draft`, `send_invoice`), Blueprint household and portfolio scenarios (`get_blueprint_household`, `compare_blueprint_scenarios`), Meta ad audiences (`list_ad_audiences`, `create_ad_audience`, `sync_ad_audience`), client video testimonials (`list_video_testimonials`, `publish_video_testimonial`), and tracking pixels (`get_tracking_settings`, `set_default_pixels`).
 
 ## Lifecycle verbs (the same everywhere)
 - Draft: content create_* tools (posts, reels, email, ads, blog, landing pages) write a row and nothing ships. Exceptions: `create_form` publishes the form by default (pass publish false for a draft) and `create_calendar_widget` creates the widget enabled. A published form or enabled widget is embeddable, but nothing is sent to any audience. Passing schedule_at to a create tool is a Schedule, not a Draft: the row lands scheduled and ships automatically (unless a review-first connection or missing publish permission downgrades it; see Publishing permission below).

@@ -1,9 +1,9 @@
 ---
 name: newsletter-email
-description: "Draft a newsletter issue to the consent-aware subscriber audience or an email inside a hub campaign, with the audience read first and the send left to the user in the app."
+description: "Draft a newsletter issue to the consent-aware subscriber audience or an email inside a hub campaign, with the audience read first and the send left to the user in the app. Use when the user wants a newsletter or an email to a list."
 ---
 
-> Vexur's `newsletter-email` playbook, version 1. With the Vexur connector connected, call `get_skill` with key `newsletter-email` first and follow that live version wherever the two differ.
+> Vexur's `newsletter-email` playbook, version 2. With the Vexur connector connected, call `get_skill` with key `newsletter-email` first and follow that live version wherever the two differ.
 
 # Newsletter issues and campaign emails
 

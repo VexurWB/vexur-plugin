@@ -1,9 +1,9 @@
 ---
 name: contacts-and-deals
-description: "Work the people and the pipeline: find and update contacts, move deals through stages, run the Action Centre task list, read segments and buyer briefs, and debug automations."
+description: "Work the people and the pipeline: find and update contacts, move deals through stages, run the Action Centre task list, read segments and buyer briefs, and debug automations. Use when the user asks about a contact, deal, pipeline stage, task, meeting note or buyer brief, or an automation that misbehaves."
 ---
 
-> Vexur's `crm` playbook, version 2. With the Vexur connector connected, call `get_skill` with key `crm` first and follow that live version wherever the two differ.
+> Vexur's `crm` playbook, version 3. With the Vexur connector connected, call `get_skill` with key `crm` first and follow that live version wherever the two differ.
 
 # CRM: contacts, deals, tasks and automations
 
@@ -40,6 +40,14 @@ Call `list_pipelines` before any deal work. You need a pipeline_id and a stage_i
 - **`set_automation_active` is a live switch.** Pausing stops enrolment and steps for everyone in that workflow, not just the contact in front of you. Read back what the automation does and get explicit confirmation before pausing.
 - Segments are read-only on this surface. To act on one, target it from a campaign (`get_skill` campaign).
 - Contact records are personal data. Summarise, count, and name only who is relevant. Do not dump full records or bulk-list people when a short answer does the job.
+
+## Notes, meetings, consent, imports and briefs
+- `add_contact_note` writes to the contact's activity timeline (what the app shows under Activity); `update_contact` changes the static notes field. Neither sends anything to the person.
+- Meeting notes from Google Meet, Zoom or Fireflies: `list_meeting_notes` (filter `match_status` to unmatched or review_required for the ones that never reached a contact), `get_meeting_note`, and `attach_meeting_note` to put one on the right contact's timeline.
+- Consent: `get_contact_consent` reads it, and missing consent means unknown, never permission. `record_contact_opt_out` records an opt-out and can only ever revoke.
+- Imports and merges are preview first: `preview_contact_import` (up to 100 rows, a preview_id valid for 15 minutes) then `import_contacts`; `preview_contact_merge` then `merge_contacts`, which cannot be undone. Show the user the preview and get a yes before either.
+- Buyer briefs: `list_buyer_briefs`, `get_buyer_brief`, `create_buyer_brief` (a title and a description, plus the criteria you actually have), `update_buyer_brief` (inactive briefs only), and `match_properties_to_brief` to scan live off-market listings for candidates. Nothing is sent to anyone.
+- Deals: `get_deal` for one deal with its timeline. For a buyers-agency client's onboarding, `get_client_onboarding_status`, and `update_client_onboarding` for manual steps only; system, legal verification and signature steps cannot be overridden.
 
 ## Fields the database constrains
 These are CHECK-constrained. The tool schema carries the enums, but a client holding a stale tool list may show them as free text - use these values, not prose:

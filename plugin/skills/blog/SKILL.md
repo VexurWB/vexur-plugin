@@ -1,9 +1,9 @@
 ---
 name: blog
-description: "Draft a blog post from the account's blog template into the Website Lab blog CMS with the SEO fields, images and campaign link filled, then release it only on the user's say-so."
+description: "Draft a blog post from the account's blog template into the Website Lab blog CMS with the SEO fields, images and campaign link filled, then release it only on the user's say-so. Use when the user wants a blog post written, scheduled or published."
 ---
 
-> Vexur's `blog` playbook, version 3. With the Vexur connector connected, call `get_skill` with key `blog` first and follow that live version wherever the two differ.
+> Vexur's `blog` playbook, version 4. With the Vexur connector connected, call `get_skill` with key `blog` first and follow that live version wherever the two differ.
 
 # Blog: draft, structure and release a post
 

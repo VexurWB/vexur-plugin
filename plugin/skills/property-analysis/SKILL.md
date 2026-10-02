@@ -1,14 +1,14 @@
 ---
 name: property-analysis
-description: "Reads saved Propalyser analyses and suburb market profiles. Use when the user asks about a saved deal or analysis, wants deals compared or summarised, or needs suburb statistics. Read only: numbers are surfaced verbatim, never recalculated."
+description: "Reads saved Propalyser analyses and suburb market profiles. Use when the user asks about a saved deal or analysis, wants deals compared or summarised, or needs suburb statistics. Also creates, runs and reports residential analyses with Vexur's own engine. Numbers always come from the engine, never recalculated by hand."
 ---
 
-> Vexur's `property-analysis` playbook, version 7. With the Vexur connector connected, call `get_skill` with key `property-analysis` first and follow that live version wherever the two differ.
+> Vexur's `property-analysis` playbook, version 8. With the Vexur connector connected, call `get_skill` with key `property-analysis` first and follow that live version wherever the two differ.
 
 # Review Propalyser analyses and research suburbs
 
 ## When to use
-The user asks about a saved Propalyser analysis or deal, wants deals compared, wants a client summary of an analysis, or needs suburb market statistics. This playbook is read and research only: MCP cannot create or edit analyses and never runs the numbers itself.
+The user asks about a saved Propalyser analysis or deal, wants deals compared, wants a client summary of an analysis, or needs suburb market statistics. Reading and comparing works for every analysis type. Residential analyses can also be created, run and reported here; commercial and childcare analyses are set up in Propalyser in the app.
 
 ## Prerequisites
 None for saved analyses (RLS scoped: own plus team-shared). Suburb research uses the account's configured provider (Settings > Research); profile calls can consume paid research quota.
@@ -23,7 +23,7 @@ None for saved analyses (RLS scoped: own plus team-shared). Suburb research uses
 6. Comparing deals: fetch each in full and compare saved results only, stating each analysis's own assumptions next to its numbers. Two deals with different growth assumptions are not directly comparable; say so.
 
 ## Rules and gotchas
-- MCP has no tool to create, edit or delete an analysis, and no tool that runs the cashflow engine. Setting up or changing a deal happens in Propalyser in the app.
+- Residential only: `create_property_analysis` saves a private draft with explicit assumptions (money in AUD, rates as percentages), `update_property_analysis` replaces its inputs and clears earlier results, `run_property_analysis` calculates it with Vexur's own engine and returns the saved report data, and `generate_analysis_report` saves a private PDF (`get_analysis_report_status` says whether the PDF predates the inputs). Ask the user for every assumption you do not have; never fill one in. Nothing is shared with a client and nothing here is a recommendation. Commercial and childcare analyses, and deleting any analysis, happen in Propalyser in the app.
 - calculated_stats can be missing on old or unfinished analyses; report that the analysis has no saved results rather than inventing any.
 - Saved-results coverage differs by type. Residential analyses persist the classic stats (yields, year 1 cash flow, IRR, ROE). Childcare analyses persist their own key family (capRate, dscr, initialYield, developmentMargin, irr). Commercial analyses usually persist NOTHING (the app computes them on open), so has_saved_stats false is normal for commercial: say the analysis has no saved results and point the user at Propalyser, never invent figures.
 - Suburb profile failures are informative, not retryable: no_connection means no provider is connected (Settings > Research), plan_blocked means the research plan excludes that data, admin_only means HtAG search is gated on this account. Relay the reason; do not retry blindly.

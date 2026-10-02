@@ -1,9 +1,9 @@
 ---
 name: ba-property-pipeline
-description: "Add, update and remove properties on a buyers-agency client's board, including off-market stock that arrives by email."
+description: "Add, update and remove properties on a buyers-agency client's board, including off-market stock that arrives by email. Use when the user forwards a listing, mentions a property for a client, or asks what is on a client's board."
 ---
 
-> Vexur's `ba-property-pipeline` playbook, version 1. With the Vexur connector connected, call `get_skill` with key `ba-property-pipeline` first and follow that live version wherever the two differ.
+> Vexur's `ba-property-pipeline` playbook, version 2. With the Vexur connector connected, call `get_skill` with key `ba-property-pipeline` first and follow that live version wherever the two differ.
 
 # Property pipeline: put properties you found on a client's board
 

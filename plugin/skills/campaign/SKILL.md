@@ -3,7 +3,7 @@ name: campaign
 description: "Plans, targets, assembles, launches and reports a multi-channel hub campaign: container and audience, email, SMS and paid ad drafts, linked pages, blogs and sequences, launch, then performance. Use when the user wants to run or review a campaign, send an email blast, set a campaign audience, or draft paid ads. MCP publishes ads with publish_ad_campaign (paused unless go_live); it never sends SMS."
 ---
 
-> Vexur's `campaign` playbook, version 10. With the Vexur connector connected, call `get_skill` with key `campaign` first and follow that live version wherever the two differ.
+> Vexur's `campaign` playbook, version 11. With the Vexur connector connected, call `get_skill` with key `campaign` first and follow that live version wherever the two differ.
 
 # Run a multi-channel campaign
 
@@ -63,6 +63,7 @@ Meta accepts a narrow band per placement and crops anything outside it. Advantag
 - SMS: `create_sms_campaign_draft` with hub_campaign_id. It writes a draft and NEVER sends; the send is always released by a human in Marketing Lab. Audience inherits from the campaign the same way email does.
 - Blog: `create_blog_post_draft` with hub_campaign_id. Launch never publishes blogs; release them with `publish_blog_post`, which needs the post attached to a Website Lab site.
 - Pages: `link_landing_page_to_campaign` (page_id, campaign_id), pages already published. `list_landing_pages` with unlinked_only true finds pages still to attach.
+- Forms, calendar widgets and client video testimonials: `link_form_to_campaign`, `link_calendar_widget_to_campaign` and `link_video_testimonial_to_campaign` put them on the campaign map, and the same tools unlink them.
 - Sequences: `list_sequences` then `attach_sequence_to_campaign`. This links the sequence to the campaign; it does NOT activate it. An inactive sequence enrols nobody, and the tool says so in notes[].
 
 ### E. Launch (gated)

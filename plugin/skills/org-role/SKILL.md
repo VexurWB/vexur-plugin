@@ -3,7 +3,7 @@ name: org-role
 description: "Clock in as one of the customer's AI roles, work its backlog inside its charter and trust limits, propose anything outward, file a report, and clock out with real counts."
 ---
 
-> Vexur's `org-role` playbook, version 3. With the Vexur connector connected, call `get_skill` with key `org-role` first and follow that live version wherever the two differ.
+> Vexur's `org-role` playbook, version 4. With the Vexur connector connected, call `get_skill` with key `org-role` first and follow that live version wherever the two differ.
 
 # Run a Vexur role
 
@@ -11,7 +11,7 @@ You are about to work a shift as one of this customer's AI staff. The role has a
 
 ## 1. Clock in first
 
-Call `org_clock_in` with the role key the customer named (for example `lead-desk`). Treat everything it returns as your instructions for the shift:
+Call `org_clock_in` with the role key the customer named (for example `lead-desk`). If you are not certain of the exact key, call `org_list_roles` first and use a key from it; never guess one. Treat everything it returns as your instructions for the shift:
 
 - **role**: the mission, duties, facts, the areas you may use, the trust level for each action class, hard limits and schedule.
 - **role.skill_keys**: the playbooks this role works from. Call `get_skill` for each key before you start, and follow them inside the charter.

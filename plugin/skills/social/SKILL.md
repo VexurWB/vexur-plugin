@@ -3,7 +3,7 @@ name: social
 description: "Use for organic social: drafting, scheduling and publishing posts, stories and reels across Facebook, Instagram, LinkedIn, Google Business, TikTok and YouTube, and for getting media into the Vexur library. Covers choosing WHICH connected account posts, token expiry and reconnects, approval modes and Meta publish proof. Not for paid ads or campaign launches."
 ---
 
-> Vexur's `social` playbook, version 4. With the Vexur connector connected, call `get_skill` with key `social` first and follow that live version wherever the two differ.
+> Vexur's `social` playbook, version 5. With the Vexur connector connected, call `get_skill` with key `social` first and follow that live version wherever the two differ.
 
 # Social: posts, reels, and media
 
@@ -46,7 +46,8 @@ The rule: **a platform is not a destination.** "LinkedIn" is not an answer to "w
 - Meta publish proof: a Facebook or Instagram post only counts as published once a verified public URL comes back. Otherwise the row lands in partially_published. After publishing, read the post platform state and report exactly what happened per platform.
 - Media rules are enforced per platform at draft time: carousels need at least two items, stories exactly one, reels exactly one video. Fix validation errors by changing the draft, not by dropping platforms silently.
 - Captions with UTM links: bake the parameters into the body or per-platform body; publishing adds none.
-- Editing: `update_social_post` works on draft, pending_approval, scheduled and failed posts only. Media arrays REPLACE existing media; per_platform merges. Passing per_platform.<platform>.connection_id moves the post to a different account and says so in notes[]. Delete only drafts, failed or pending posts; unschedule first with `schedule_social_post` cancel:true.
+- Editing: `update_social_post` works on draft, pending_approval, scheduled and failed posts only. Media arrays REPLACE existing media; per_platform merges. Passing per_platform.<platform>.connection_id moves the post to a different account and says so in notes[]. Delete with `delete_social_post` only drafts, failed or pending posts; unschedule first with `schedule_social_post` cancel:true.
+- Instagram trial reels: `list_trial_reel_reviews` and `get_trial_reel_review` show each published trial and its 24 and 72 hour review; `record_trial_reel_outcome` records what the user says happened. It changes nothing on Instagram, and a reported outcome is not Meta's verification.
 
 ### Failure handling
 - "you have N connected <platform> accounts, so this post has no unambiguous destination": expected and correct. Show the user the listed accounts, ask which one, retry with connection_id. Never work around it.
