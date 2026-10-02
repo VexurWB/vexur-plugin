@@ -1,0 +1,26 @@
+{
+  "name": "vexur",
+  "owner": {
+    "name": "Vexur",
+    "email": "support@vexur.com.au",
+    "url": "https://vexur.com.au"
+  },
+  "metadata": {
+    "description": "Vexur for Claude: the Vexur connector and every Vexur playbook in one plugin."
+  },
+  "plugins": [
+    {
+      "name": "vexur",
+      "source": "./plugin",
+      "description": "Run Vexur, the All-In-One Property Platform, from Claude: landing pages, campaigns, social, conversations, contacts and deals, websites, reels and property analysis.",
+      "category": "productivity",
+      "homepage": "https://vexur.com.au",
+      "author": {
+        "name": "Vexur",
+        "email": "support@vexur.com.au",
+        "url": "https://vexur.com.au"
+      },
+      "keywords": ["vexur", "property", "real-estate", "buyers-agent", "landing-pages", "marketing", "mcp"]
+    }
+  ]
+}

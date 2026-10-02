@@ -1,0 +1,28 @@
+{
+  "name": "vexur",
+  "version": "1.0.0",
+  "description": "Run Vexur, the All-In-One Property Platform, from Claude: landing pages, campaigns, social, conversations, contacts and deals, websites, reels and property analysis.",
+  "author": {
+    "name": "Vexur",
+    "email": "support@vexur.com.au",
+    "url": "https://vexur.com.au"
+  },
+  "homepage": "https://vexur.com.au",
+  "repository": "https://github.com/VexurWB/vexur-plugin",
+  "keywords": [
+    "vexur",
+    "property",
+    "real-estate",
+    "buyers-agent",
+    "landing-pages",
+    "marketing",
+    "mcp"
+  ],
+  "mcpServers": {
+    "vexur": {
+      "type": "http",
+      "url": "https://mcp.vexur.com.au/mcp"
+    }
+  },
+  "skills": "./skills/"
+}

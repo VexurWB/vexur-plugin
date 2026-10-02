@@ -1,0 +1,36 @@
+name: Sync Vexur playbooks
+
+# Pulls the live playbooks from Vexur every hour and commits only when one changed.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-skills
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/sync-skills.mjs
+      - name: Commit changed playbooks
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No playbook changed."
+            exit 0
+          fi
+          version=$(node -p "require('./plugin/.claude-plugin/plugin.json').version")
+          git config user.name "Vexur"
+          git config user.email "support@vexur.com.au"
+          git add -A
+          git commit -m "Sync playbooks: plugin ${version}"
+          git push

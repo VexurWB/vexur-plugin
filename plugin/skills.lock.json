@@ -1,0 +1,76 @@
+{
+  "content_hash": "151f58eae532d86b56023e58bec50c136005168f4af4f6fcfd281c1b15ac1e46",
+  "plugin_version": "1.0.0",
+  "skills": [
+    {
+      "name": "org-role",
+      "key": "org-role",
+      "version": 3
+    },
+    {
+      "name": "task-router",
+      "key": "task-router",
+      "version": 15
+    },
+    {
+      "name": "landing-page-builder",
+      "key": "landing-page-builder",
+      "version": 7
+    },
+    {
+      "name": "social",
+      "key": "social",
+      "version": 4
+    },
+    {
+      "name": "conversations",
+      "key": "conversations",
+      "version": 2
+    },
+    {
+      "name": "campaign",
+      "key": "campaign",
+      "version": 10
+    },
+    {
+      "name": "newsletter-email",
+      "key": "newsletter-email",
+      "version": 1
+    },
+    {
+      "name": "contacts-and-deals",
+      "key": "crm",
+      "version": 2
+    },
+    {
+      "name": "lead-followup",
+      "key": "lead-followup",
+      "version": 3
+    },
+    {
+      "name": "property-analysis",
+      "key": "property-analysis",
+      "version": 7
+    },
+    {
+      "name": "vexur-reel-editor",
+      "key": "vexur-reel-editor",
+      "version": 11
+    },
+    {
+      "name": "website-editor",
+      "key": "website-editor",
+      "version": 3
+    },
+    {
+      "name": "blog",
+      "key": "blog",
+      "version": 3
+    },
+    {
+      "name": "ba-property-pipeline",
+      "key": "ba-property-pipeline",
+      "version": 1
+    }
+  ]
+}
