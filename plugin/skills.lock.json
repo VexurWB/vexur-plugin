@@ -1,6 +1,6 @@
 {
-  "content_hash": "e400f097773f6a5dd1c267a59a2868e25aa26039329427d5f6c49c58df5addac",
-  "plugin_version": "1.0.1",
+  "content_hash": "92444cb27a17c184f9b969f9d545c592132519d671b516634e2772c8213f9859",
+  "plugin_version": "1.0.2",
   "skills": [
     {
       "name": "org-role",
@@ -10,7 +10,7 @@
     {
       "name": "task-router",
       "key": "task-router",
-      "version": 16
+      "version": 17
     },
     {
       "name": "landing-page-builder",
@@ -40,6 +40,11 @@
     {
       "name": "contacts-and-deals",
       "key": "crm",
+      "version": 3
+    },
+    {
+      "name": "automations",
+      "key": "automations",
       "version": 3
     },
     {

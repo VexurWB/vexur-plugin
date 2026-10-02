@@ -3,7 +3,7 @@ name: task-router
 description: "Start here: routes any Vexur task to the right area playbook and carries the shared conventions (draft, schedule, publish and launch verbs, Perth-default times, and what each connection may publish). Use first whenever the owning playbook is not obvious."
 ---
 
-> Vexur's `task-router` playbook, version 16. With the Vexur connector connected, call `get_skill` with key `task-router` first and follow that live version wherever the two differ.
+> Vexur's `task-router` playbook, version 17. With the Vexur connector connected, call `get_skill` with key `task-router` first and follow that live version wherever the two differ.
 
 # Start here: routing and conventions
 
@@ -16,7 +16,8 @@ First call on any Vexur task when the owning playbook is not obvious, and the ho
 - Editing a video in Reel Studio (analysing footage, cutting and captioning a reel project, hook variations, background exports): `get_skill` vexur-reel-editor. Scheduling or publishing the finished reel stays with social.
 - Campaigns of any kind, campaign audiences and targeting, email blasts, SMS drafts, paid ad drafts, nurture sequences, launches, and campaign reporting: `get_skill` campaign. It also disambiguates the three campaign concepts (hub campaigns, ad-builder drafts, platform-synced ad campaigns).
 - New enquiries, unworked leads, and follow-up: `get_skill` lead-followup.
-- Contacts, companies, deals and pipelines, the Action Centre task list, saved segments, buyer briefs, and automations (including debugging a workflow that is misbehaving): `get_skill` crm. Note that where a person is up to is the deal's stage, not the contact's lifecycle_stage.
+- Contacts, companies, deals and pipelines, the Action Centre task list, saved segments, buyer briefs, and debugging an automation that misbehaves: `get_skill` crm.
+- Building or changing an automation ("when this happens, do that", follow-ups, date or weekly triggers): `get_skill` automations. Note that where a person is up to is the deal's stage, not the contact's lifecycle_stage.
 - Inbox, DMs, comments, replies, WhatsApp/SMS threads, auto-replies, keyword rules, Auto Reply journeys, reply metrics: `get_skill` conversations. Replying to a customer, switching a channel on, enabling a rule and publishing a journey all reach real people; confirm first; each needs this connection's Send / publish permission for that area.
 - Saved Propalyser analyses and suburb research: `get_skill` property-analysis.
 - Properties the agency FOUND for a client: adding one from an agent's email or an off-market listing, updating it, moving it along the board, or clearing it out: `get_skill` ba-property-pipeline. Distinct from the two above: a buyer brief is what the client WANTS, a Propalyser analysis is the numbers on a property, and this is the client's actual property board.
