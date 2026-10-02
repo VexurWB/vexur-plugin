@@ -1,6 +1,6 @@
 {
-  "content_hash": "92444cb27a17c184f9b969f9d545c592132519d671b516634e2772c8213f9859",
-  "plugin_version": "1.0.2",
+  "content_hash": "6ec4579b8750b8285f5311364d3e631764c5f6fcb85906fcf16ce1d099e56dad",
+  "plugin_version": "1.0.3",
   "skills": [
     {
       "name": "org-role",
@@ -60,7 +60,7 @@
     {
       "name": "vexur-reel-editor",
       "key": "vexur-reel-editor",
-      "version": 13
+      "version": 14
     },
     {
       "name": "website-editor",
