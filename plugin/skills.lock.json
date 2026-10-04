@@ -1,6 +1,6 @@
 {
-  "content_hash": "1a5780303410a03d8f24a8d459a6987d92d1eaa89e912ce8c55693d373b53984",
-  "plugin_version": "1.0.4",
+  "content_hash": "043b7082ae8beadafe4a89dfa9d20c9fad88967b6f52106cbde0b2a1bd4f0e82",
+  "plugin_version": "1.0.5",
   "skills": [
     {
       "name": "org-role",
@@ -10,7 +10,7 @@
     {
       "name": "task-router",
       "key": "task-router",
-      "version": 17
+      "version": 18
     },
     {
       "name": "landing-page-builder",
@@ -60,7 +60,7 @@
     {
       "name": "vexur-reel-editor",
       "key": "vexur-reel-editor",
-      "version": 14
+      "version": 16
     },
     {
       "name": "website-editor",
@@ -76,6 +76,11 @@
       "name": "ba-property-pipeline",
       "key": "ba-property-pipeline",
       "version": 2
+    },
+    {
+      "name": "portfolio-blueprint",
+      "key": "portfolio-blueprint",
+      "version": 3
     }
   ]
 }
