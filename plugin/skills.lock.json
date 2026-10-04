@@ -1,6 +1,6 @@
 {
-  "content_hash": "6ec4579b8750b8285f5311364d3e631764c5f6fcb85906fcf16ce1d099e56dad",
-  "plugin_version": "1.0.3",
+  "content_hash": "1a5780303410a03d8f24a8d459a6987d92d1eaa89e912ce8c55693d373b53984",
+  "plugin_version": "1.0.4",
   "skills": [
     {
       "name": "org-role",
@@ -40,7 +40,7 @@
     {
       "name": "contacts-and-deals",
       "key": "crm",
-      "version": 3
+      "version": 4
     },
     {
       "name": "automations",
@@ -55,7 +55,7 @@
     {
       "name": "property-analysis",
       "key": "property-analysis",
-      "version": 8
+      "version": 9
     },
     {
       "name": "vexur-reel-editor",

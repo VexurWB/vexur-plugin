@@ -1,9 +1,9 @@
 ---
 name: contacts-and-deals
-description: "Work the people and the pipeline: find and update contacts, move deals through stages, run the Action Centre task list, read segments and buyer briefs, and debug automations. Use when the user asks about a contact, deal, pipeline stage, task, meeting note or buyer brief, or an automation that misbehaves."
+description: "Work the people and the pipeline: find and update contacts, move deals through stages, run the Action Centre task list, build segments, read buyer briefs, and debug automations. Use when the user asks about a contact, deal, pipeline stage, task, meeting note or buyer brief, or an automation that misbehaves."
 ---
 
-> Vexur's `crm` playbook, version 3. With the Vexur connector connected, call `get_skill` with key `crm` first and follow that live version wherever the two differ.
+> Vexur's `crm` playbook, version 4. With the Vexur connector connected, call `get_skill` with key `crm` first and follow that live version wherever the two differ.
 
 # CRM: contacts, deals, tasks and automations
 
@@ -14,7 +14,7 @@ Anything about people and the work around them: contacts and companies, deals an
 - **Contact** - the person. `list_contacts` searches name, email and company, and filters by tag, lifecycle stage or source. Archived contacts are excluded.
 - **Deal** (pipeline opportunity) - what you are trying to win, sitting in one stage of one pipeline. Link it to a contact wherever you can.
 - **Task** - a single action in the Action Centre, optionally linked to a contact or a deal.
-- **Segment** - a saved audience of contacts. Read-only here; it is what campaigns target.
+- **Segment** - a saved audience of contacts, defined by rules that are re-checked every time it is used. It is what campaigns target.
 - **Buyer brief** - what a client is looking for, feeding the off-market marketplace.
 - **Automation** - a workflow that enrols contacts and runs steps against them.
 
@@ -29,8 +29,9 @@ Call `list_pipelines` before any deal work. You need a pipeline_id and a stage_i
 3. **Contacts.** `create_contact` needs at least a name, email or phone. Search the email with `list_contacts` first - nothing dedupes for you. `update_contact` changes only the fields you pass.
 4. **Deals.** `create_deal` needs a title; omitting pipeline_id/stage_id drops it in the default pipeline's first stage. `update_deal` moves it (`stage_id`) or closes it (`status` open/won/lost).
 5. **Tasks.** `create_task` needs a title; link contact_id or opportunity_id where it belongs. Finish work with `complete_task`, not `update_task`.
-6. **Automations, when something looks wrong.** `get_automation` for the real step chain, then `get_automation_runs` for the errors, then `list_automation_enrollments` filtered to the failed ones. Read the log before forming a theory.
-7. **Report with ids.** Say what changed and give the id, so the customer can open it.
+6. **Segments.** `create_segment` and `update_segment` take the same rules as the segment builder in Vexur. Values match exactly as stored, so read them first: a contact's `lifecycle_stage` and tags from `list_contacts` (`divorce_ebook`, not "Divorce Ebook"). To leave named people out, find each one with `list_contacts`, settle with the user any name that matches more than one contact or none, tag them with `update_contact` `add_tags`, then add a Tags rule with `has_none`. Segments cannot list people by id. Check the returned `matched` count and any `warnings` before you report it. On `update_segment`, `rules` replaces every rule, so send the full set.
+7. **Automations, when something looks wrong.** `get_automation` for the real step chain, then `get_automation_runs` for the errors, then `list_automation_enrollments` filtered to the failed ones. Read the log before forming a theory.
+8. **Report with ids.** Say what changed and give the id, so the customer can open it.
 
 ## Rules and gotchas
 - **Consent is not yours to set.** Neither create nor update can touch newsletter or marketing-consent fields; those stay under the app's consent controls. If asked to opt someone in, say where it happens.
@@ -38,7 +39,7 @@ Call `list_pipelines` before any deal work. You need a pipeline_id and a stage_i
 - `update_deal` with status won or lost stamps the close date itself. Do not also set a date by hand.
 - **Buyer briefs are created INACTIVE on purpose.** Activating one publishes it to the off-market marketplace, and the customer does that in the app. Never report a new brief as live.
 - **`set_automation_active` is a live switch.** Pausing stops enrolment and steps for everyone in that workflow, not just the contact in front of you. Read back what the automation does and get explicit confirmation before pausing.
-- Segments are read-only on this surface. To act on one, target it from a campaign (`get_skill` campaign).
+- Saving a segment sends nothing. To send to one, target it from a campaign (`get_skill` campaign). Changing a segment's rules changes who every campaign and automation using it reaches, so say what changes before you edit one in use.
 - Contact records are personal data. Summarise, count, and name only who is relevant. Do not dump full records or bulk-list people when a short answer does the job.
 
 ## Notes, meetings, consent, imports and briefs
