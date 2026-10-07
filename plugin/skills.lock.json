@@ -1,6 +1,6 @@
 {
-  "content_hash": "043b7082ae8beadafe4a89dfa9d20c9fad88967b6f52106cbde0b2a1bd4f0e82",
-  "plugin_version": "1.0.5",
+  "content_hash": "57eb998275070aaeda914203e5870669b92835185159aa9c306efbce362d5ef9",
+  "plugin_version": "1.0.6",
   "skills": [
     {
       "name": "org-role",
@@ -15,7 +15,7 @@
     {
       "name": "landing-page-builder",
       "key": "landing-page-builder",
-      "version": 7
+      "version": 8
     },
     {
       "name": "social",

@@ -3,7 +3,7 @@ name: landing-page-builder
 description: "Everything landing pages: build pages with the two-phase token contract, wire and repair {{VEXUR_*}} connectors (forms, calendars, booking links, webinars, quiz, phone, reviews), create lead forms, hand drafts off for publishing on review-first connections, and read page leads. Use for any landing page task."
 ---
 
-> Vexur's `landing-page-builder` playbook, version 7. With the Vexur connector connected, call `get_skill` with key `landing-page-builder` first and follow that live version wherever the two differ.
+> Vexur's `landing-page-builder` playbook, version 8. With the Vexur connector connected, call `get_skill` with key `landing-page-builder` first and follow that live version wherever the two differ.
 
 # Landing pages: build, wire connectors, and capture leads
 
@@ -16,7 +16,7 @@ Inner routing: building a page is Part 1. Bindings and validation are Part 2. Fo
 
 ### Steps
 1. `get_landing_page_workflow`. It returns the steps, the binding rules, the account brand and `connector_resources` (forms, calendar widgets with `calendar_connected`, webinars, `default_booking_url`, team phone). Note `publish_mode`: `handoff` means this connection finishes pages as drafts and the user publishes them in Vexur. If the response has no `publish_mode`, treat it as `handoff`. If the calendar widgets carry no `calendar_connected`, `list_event_types` returns it for the account.
-2. Ask the user for the offer, the audience and any real proof. Never invent statistics, testimonials or brand details.
+2. Ask the user for the offer, the audience and any real proof. Never invent statistics, testimonials or brand details. Describe the call or offer only as the user states it: never add a format, guarantee or promise they did not give. A real customer's quote, name or screenshot goes on the page only after the user confirms that person agreed to it being published.
 3. Missing a form or calendar? Create it (Part 3, `create_calendar_widget`), then run step 1 again. For an event page, only use a webinar whose `starts_at` is still ahead: a page for a past session takes registrations for nothing.
 4. `create_landing_page` WITHOUT `generated_html`. The response (`created:false`, a `generation_prompt`) is the contract, not an error.
 5. Write one complete, self-contained HTML document from `generation_prompt`, using only {{VEXUR_*}} tokens whose connectors exist. The form and calendar embeds draw their own card: put each token in a plain column with no background, border, padding or shadow (a calendar column gets `min-height:560px`), never inside a card of your own.
@@ -32,7 +32,7 @@ Inner routing: building a page is Part 1. Bindings and validation are Part 2. Fo
 - Section-based pages (built in the app editor) are edited and published in the editor only.
 - Branding: the user's values win, then `connector_resources.brand`, then defaults. Never invent brand colours the account already has.
 - Never add tracking scripts, pixels, custom form handlers, booking fetch calls or CRM endpoints to the HTML. Vexur injects tracking and wires every connector.
-- Write times and dates the page states as facts with their real timezone, and never build a countdown to a date that will pass while the page is live.
+- Write times and dates the page states as facts with their real timezone, and never build a countdown to a date that will pass while the page is live. A calendar embed shows each visitor times in their own timezone, so never state the host's hours or timezone beside it.
 - Slugs are unique across Vexur; the create response gives a free one. MCP cannot rename a slug.
 
 ### Done means
