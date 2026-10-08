@@ -1,6 +1,6 @@
 {
-  "content_hash": "57eb998275070aaeda914203e5870669b92835185159aa9c306efbce362d5ef9",
-  "plugin_version": "1.0.6",
+  "content_hash": "4cbeb0ee3c875ef901c059ecc0cf17159d711fbd32d5ed029d4c6c829c18774f",
+  "plugin_version": "1.0.7",
   "skills": [
     {
       "name": "org-role",
@@ -55,7 +55,7 @@
     {
       "name": "property-analysis",
       "key": "property-analysis",
-      "version": 9
+      "version": 10
     },
     {
       "name": "vexur-reel-editor",

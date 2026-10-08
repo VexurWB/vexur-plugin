@@ -3,7 +3,7 @@ name: property-analysis
 description: "Reads saved Propalyser analyses and suburb market profiles. Use when the user asks about a saved deal or analysis, wants deals compared or summarised, or needs suburb statistics. Also creates, runs and reports residential analyses with Vexur's own engine. Numbers always come from the engine, never recalculated by hand."
 ---
 
-> Vexur's `property-analysis` playbook, version 9. With the Vexur connector connected, call `get_skill` with key `property-analysis` first and follow that live version wherever the two differ.
+> Vexur's `property-analysis` playbook, version 10. With the Vexur connector connected, call `get_skill` with key `property-analysis` first and follow that live version wherever the two differ.
 
 # Review Propalyser analyses and research suburbs
 
@@ -24,6 +24,7 @@ None for saved analyses (RLS scoped: own plus team-shared). Suburb research uses
 
 ## Rules and gotchas
 - Creating drafts. Residential: `create_property_analysis` saves a private draft with explicit assumptions (money in AUD, rates as percentages) and `update_property_analysis` replaces its inputs and clears earlier results. Commercial: `create_commercial_analysis` saves a private Commercial V2 draft from the tenancy schedule (one row per tenancy: lease dates, net rent, outgoings and recovery, rent reviews, incentives, what happens at expiry), purchase costs, loan, landlord costs and exit assumptions, and returns its headline results; `update_commercial_analysis` replaces every input. For either, `run_property_analysis` calculates it with Vexur's own engine and saves the results, and `generate_analysis_report` saves a private PDF (`get_analysis_report_status` says whether the PDF predates the inputs). Ask the user for every assumption you do not have; never fill one in. Nothing is shared with a client and nothing here is a recommendation. Childcare analyses, and deleting any analysis, happen in Propalyser in the app.
+- New Builds and Airbnb: `create_new_build_analysis` / `update_new_build_analysis` and `create_str_analysis` / `update_str_analysis` write private drafts with the analyser's own field names; any input left out takes the analyser's starting value, listed in filled_in, so tell the user which. Propalyser saves no results for these two types, so `run_property_analysis` returns their figures without saving them and `generate_analysis_report` saves the PDF.
 - calculated_stats can be missing on old or unfinished analyses; report that the analysis has no saved results rather than inventing any.
 - Saved-results coverage differs by type. Residential analyses persist the classic stats (yields, year 1 cash flow, IRR, ROE). Childcare analyses persist their own key family (capRate, dscr, initialYield, developmentMargin, irr). Commercial analyses saved in Commercial V2 persist theirs (yields, year 1 cash flow, NOI and DSCR, IRR, NPV, ROE); a commercial draft never saved or run has none. has_saved_stats false means say the analysis has no saved results and point the user at Propalyser, never invent figures.
 - Suburb profile failures are informative, not retryable: no_connection means no provider is connected (Settings > Research), plan_blocked means the research plan excludes that data, admin_only means HtAG search is gated on this account. Relay the reason; do not retry blindly.
