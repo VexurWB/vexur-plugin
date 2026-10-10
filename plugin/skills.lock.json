@@ -1,6 +1,6 @@
 {
-  "content_hash": "4cbeb0ee3c875ef901c059ecc0cf17159d711fbd32d5ed029d4c6c829c18774f",
-  "plugin_version": "1.0.7",
+  "content_hash": "0f4b6c5c8ea6d0cde1237fd1776194243bf453c82d3410e3b44a30de532876f3",
+  "plugin_version": "1.0.8",
   "skills": [
     {
       "name": "org-role",
@@ -75,7 +75,7 @@
     {
       "name": "ba-property-pipeline",
       "key": "ba-property-pipeline",
-      "version": 2
+      "version": 3
     },
     {
       "name": "portfolio-blueprint",

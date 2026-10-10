@@ -3,7 +3,7 @@ name: ba-property-pipeline
 description: "Add, update and remove properties on a buyers-agency client's board, including off-market stock that arrives by email. Use when the user forwards a listing, mentions a property for a client, or asks what is on a client's board."
 ---
 
-> Vexur's `ba-property-pipeline` playbook, version 2. With the Vexur connector connected, call `get_skill` with key `ba-property-pipeline` first and follow that live version wherever the two differ.
+> Vexur's `ba-property-pipeline` playbook, version 3. With the Vexur connector connected, call `get_skill` with key `ba-property-pipeline` first and follow that live version wherever the two differ.
 
 # Property pipeline: put properties you found on a client's board
 
@@ -25,7 +25,7 @@ A client holds at most one card per address, and Vexur decides sameness on the a
 Record only what the message actually says. An off-market email is usually an address, a price or range, a few specifications and the agent's contact details, and that is a complete card.
 - Off-market stock: set `is_off_market` true AND `listing_type` `off_market`. Set `source_site` to where it came from, for example `agent email`.
 - Put the sending agent in `agent_name`, `agent_phone`, `agent_agency`, and any second agent in `additional_agents`.
-- Keep the agent's own wording in `description`, and your read of it in `agent_notes`.
+- Keep the agent's own wording in `description`, and your read of it in `admin_notes`, which only the team sees. `agent_notes` are the Public Notes the client reads in Client Lab, and editing them can notify the client, so write there only what the agent asked you to tell the client.
 - Never infer a suburb, price or bedroom count that was not stated, and never guess a partial address into a full one. Leave the field out. A missing field is fixable later; an invented one becomes the record.
 - No client yet? Leave `client_id` out and it waits in the unassigned pool.
 
