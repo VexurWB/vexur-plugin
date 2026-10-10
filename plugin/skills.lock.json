@@ -1,11 +1,11 @@
 {
-  "content_hash": "0f4b6c5c8ea6d0cde1237fd1776194243bf453c82d3410e3b44a30de532876f3",
-  "plugin_version": "1.0.8",
+  "content_hash": "917604084ab942d2eaf87273de18d473195077738ac51975b8376108b1caade2",
+  "plugin_version": "1.0.9",
   "skills": [
     {
       "name": "org-role",
       "key": "org-role",
-      "version": 4
+      "version": 5
     },
     {
       "name": "task-router",
@@ -40,7 +40,7 @@
     {
       "name": "contacts-and-deals",
       "key": "crm",
-      "version": 4
+      "version": 5
     },
     {
       "name": "automations",

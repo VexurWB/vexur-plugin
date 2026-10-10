@@ -3,9 +3,9 @@ name: contacts-and-deals
 description: "Work the people and the pipeline: find and update contacts, move deals through stages, run the Action Centre task list, build segments, read buyer briefs, and debug automations. Use when the user asks about a contact, deal, pipeline stage, task, meeting note or buyer brief, or an automation that misbehaves."
 ---
 
-> Vexur's `crm` playbook, version 4. With the Vexur connector connected, call `get_skill` with key `crm` first and follow that live version wherever the two differ.
+> Vexur's `crm` playbook, version 5. With the Vexur connector connected, call `get_skill` with key `crm` first and follow that live version wherever the two differ.
 
-# CRM: contacts, deals, tasks and automations
+# Contacts and deals: people, pipelines, tasks and automations
 
 ## When to use
 Anything about people and the work around them: contacts and companies, deals and pipelines, the Action Centre task list, saved segments, buyer briefs, and the automations that move people through it all. Also the follow-through after lead-followup: that playbook drafts first contact, this one records what happened.
