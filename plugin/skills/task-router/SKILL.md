@@ -3,7 +3,7 @@ name: task-router
 description: "Start here: routes any Vexur task to the right area playbook and carries the shared conventions (draft, schedule, publish and launch verbs, Perth-default times, and what each connection may publish). Use first whenever the owning playbook is not obvious."
 ---
 
-> Vexur's `task-router` playbook, version 18. With the Vexur connector connected, call `get_skill` with key `task-router` first and follow that live version wherever the two differ.
+> Vexur's `task-router` playbook, version 19. With the Vexur connector connected, call `get_skill` with key `task-router` first and follow that live version wherever the two differ.
 
 # Start here: routing and conventions
 
@@ -19,7 +19,8 @@ First call on any Vexur task when the owning playbook is not obvious, and the ho
 - Contacts, companies, deals and pipelines, the Action Centre task list, saved segments, buyer briefs, and debugging an automation that misbehaves: `get_skill` crm.
 - Building or changing an automation ("when this happens, do that", follow-ups, date or weekly triggers): `get_skill` automations. Note that where a person is up to is the deal's stage, not the contact's lifecycle_stage.
 - Inbox, DMs, comments, replies, WhatsApp/SMS threads, auto-replies, keyword rules, Auto Reply journeys, reply metrics: `get_skill` conversations. Replying to a customer, switching a channel on, enabling a rule and publishing a journey all reach real people; confirm first; each needs this connection's Send / publish permission for that area.
-- Saved Propalyser analyses and suburb research: `get_skill` property-analysis.
+- Saved Propalyser analyses of one property (residential, commercial, New Build, Airbnb) and suburb research: `get_skill` property-analysis.
+- Development deals: a site to subdivide, amalgamate, or build several homes, townhouses, apartments or strata units on, any development or subdivision feasibility, and saved Project Feasibility projects: `get_skill` project-feasibility. A New Build is one dwelling on one lot; never model a development as one.
 - Portfolio Blueprint, the user's own or a client's (the household, properties and loans, the forecast, the Growth Engine plan, scenarios, the Portfolio Management ledger and saved reports), and loading a client's spreadsheet, fact find or statements into it: `get_skill` portfolio-blueprint.
 - Properties the agency FOUND for a client: adding one from an agent's email or an off-market listing, updating it, moving it along the board, or clearing it out: `get_skill` ba-property-pipeline. Distinct from the two above: a buyer brief is what the client WANTS, a Propalyser analysis is the numbers on a property, and this is the client's actual property board.
 - The customer's own website: changing its wording, images, pages or styling and previewing the change: `get_skill` website-editor. This is their real website, a different product from landing pages, and it is edited through a file snapshot rather than GitHub. The customer publishes the change from Website Lab.

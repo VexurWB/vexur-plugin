@@ -1,6 +1,6 @@
 {
-  "content_hash": "917604084ab942d2eaf87273de18d473195077738ac51975b8376108b1caade2",
-  "plugin_version": "1.0.9",
+  "content_hash": "95a4c0d4bdf9de35e58fbee151273c1243b64bb7d1c5bae56cff9f9840cbaf5b",
+  "plugin_version": "1.0.10",
   "skills": [
     {
       "name": "org-role",
@@ -10,7 +10,7 @@
     {
       "name": "task-router",
       "key": "task-router",
-      "version": 18
+      "version": 19
     },
     {
       "name": "landing-page-builder",
@@ -55,7 +55,7 @@
     {
       "name": "property-analysis",
       "key": "property-analysis",
-      "version": 10
+      "version": 11
     },
     {
       "name": "vexur-reel-editor",
@@ -66,6 +66,11 @@
       "name": "website-editor",
       "key": "website-editor",
       "version": 4
+    },
+    {
+      "name": "project-feasibility",
+      "key": "project-feasibility",
+      "version": 2
     },
     {
       "name": "blog",

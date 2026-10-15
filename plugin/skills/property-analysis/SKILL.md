@@ -1,14 +1,16 @@
 ---
 name: property-analysis
-description: "Reads saved Propalyser analyses and suburb market profiles. Use when the user asks about a saved deal or analysis, wants deals compared or summarised, or needs suburb statistics. Also creates, runs and reports residential analyses with Vexur's own engine. Numbers always come from the engine, never recalculated by hand."
+description: "Reads saved Propalyser analyses and suburb market profiles. Use when the user asks about a saved deal or analysis, wants deals compared or summarised, or needs suburb statistics. Also creates, runs and reports residential analyses with Vexur's own engine. Numbers always come from the engine, never recalculated by hand. Not for development deals or feasibilities (subdivision, amalgamation, several units): use project-feasibility."
 ---
 
-> Vexur's `property-analysis` playbook, version 10. With the Vexur connector connected, call `get_skill` with key `property-analysis` first and follow that live version wherever the two differ.
+> Vexur's `property-analysis` playbook, version 11. With the Vexur connector connected, call `get_skill` with key `property-analysis` first and follow that live version wherever the two differ.
 
 # Review Propalyser analyses and research suburbs
 
 ## When to use
 The user asks about a saved Propalyser analysis or deal, wants deals compared, wants a client summary of an analysis, or needs suburb market statistics. Reading and comparing works for every analysis type. Residential and commercial analyses can also be created, run and reported here; childcare analyses are set up in Propalyser in the app.
+
+Not for a development deal: a site to subdivide, amalgamate, or build several units on, or any development or subdivision feasibility. Those are Project Feasibility projects: `get_skill` project-feasibility. A New Build is one dwelling on one lot only.
 
 ## Prerequisites
 None for saved analyses (RLS scoped: own plus team-shared). Suburb research uses the account's configured provider (Settings > Research); profile calls can consume paid research quota.
