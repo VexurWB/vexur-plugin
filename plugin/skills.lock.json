@@ -1,6 +1,6 @@
 {
-  "content_hash": "95a4c0d4bdf9de35e58fbee151273c1243b64bb7d1c5bae56cff9f9840cbaf5b",
-  "plugin_version": "1.0.10",
+  "content_hash": "3ab310b86273bf0bf59ea45768ebab1fdd4253d5f48dd07e0a867ff9a5f02db2",
+  "plugin_version": "1.0.11",
   "skills": [
     {
       "name": "org-role",
@@ -20,7 +20,7 @@
     {
       "name": "social",
       "key": "social",
-      "version": 5
+      "version": 6
     },
     {
       "name": "conversations",

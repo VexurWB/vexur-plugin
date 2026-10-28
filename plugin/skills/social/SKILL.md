@@ -3,7 +3,7 @@ name: social
 description: "Use for organic social: drafting, scheduling and publishing posts, stories and reels across Facebook, Instagram, LinkedIn, Google Business, TikTok and YouTube, and for getting media into the Vexur library. Covers choosing WHICH connected account posts, token expiry and reconnects, approval modes and Meta publish proof. Not for paid ads or campaign launches."
 ---
 
-> Vexur's `social` playbook, version 5. With the Vexur connector connected, call `get_skill` with key `social` first and follow that live version wherever the two differ.
+> Vexur's `social` playbook, version 6. With the Vexur connector connected, call `get_skill` with key `social` first and follow that live version wherever the two differ.
 
 # Social: posts, reels, and media
 
@@ -26,8 +26,8 @@ The rule: **a platform is not a destination.** "LinkedIn" is not an answer to "w
 
 ### Steps
 1. `list_social_connections`. For every target platform, count the connected accounts. One account means you can proceed. More than one means you must ask the user which account before drafting, quoting the account names back to them.
-2. `get_social_platform_specs` and shape content within each platform limits (for example Instagram requires media and caps captions at 2200 characters; LinkedIn has no reel or story types; Google Business is images only and connect-only today).
-3. Draft with `create_social_post_draft`: shared body, platforms array, post_type, media by URL or media_ids from the library, and per_platform overrides for platform captions, connection_id, first_comment (Instagram and Facebook only), TikTok privacy_level, or YouTube privacy_status. Pass per_platform.<platform>.connection_id for every platform that has more than one connected account. A platform with exactly one account is wired for you.
+2. `get_social_platform_specs` and shape content within each platform limits (for example Instagram requires media and caps captions at 2200 characters; LinkedIn has no reel or story types; Google Business is images only, and a Google post is an Update, Event or Offer set with per_platform.google_business.gbp_post_type).
+3. Draft with `create_social_post_draft`: shared body, platforms array, post_type, media by URL or media_ids from the library, and per_platform overrides for platform captions, connection_id, first_comment (Instagram and Facebook only), YouTube title, privacy_status, made_for_kids, category_id and tags, TikTok upload_mode, privacy_level, allow_comment, allow_duet and allow_stitch, and Google Business gbp_post_type, gbp_cta, gbp_event and gbp_offer. Pass per_platform.<platform>.connection_id for every platform that has more than one connected account. A platform with exactly one account is wired for you.
 4. Read the response. connections_wired names the exact destination account per platform; state it back to the user ("posting to Page: Vexur, not your personal profile"). notes[] carries validation warnings, expiry warnings, the accounts that were NOT used, missing-connection warnings, and any silent status downgrade.
 5. Schedule by passing schedule_at on the draft, or later with `schedule_social_post`. The scheduler cron claims due rows every 5 minutes and publishes through the full validation engine.
 6. To publish immediately, `publish_social_post`. Then read the returned post state; do not assume success. published_to tells you the account each platform actually went to.
@@ -82,8 +82,8 @@ A finished 9:16 MP4 on a public https URL. MCP does not render video. If the fil
 ### Rules and gotchas
 - One video per reel, exactly. The validator rejects a reel draft with zero or multiple media items, or with an image.
 - MCP never renders, trims, captions or reformats video. If the source is not a finished 9:16 MP4, that work happens outside MCP, before this playbook.
-- TikTok and YouTube are admin-pilot platforms. Drafting for them succeeds with a warning: TikTok posts may be forced private (SELF_ONLY) until the app audit passes, and YouTube uploads are forced private until Google verification completes. Tell the user this instead of promising public posts.
-- Platform video constraints differ: Instagram reels 3 to 90 seconds and 100MB; Facebook reels 3 to 90 seconds and 1GB; TikTok 3 to 600 seconds and 287MB; YouTube up to 2GB. Check `get_social_platform_specs` when in doubt.
+- TikTok videos go to the creator's TikTok inbox as drafts until TikTok approves Vexur for direct posting. Tell the user to open TikTok to finish posting; never promise a TikTok is live. YouTube uploads are public unless privacy_status says otherwise, and YouTube requires a made-for-kids answer, so ask when unsure.
+- Platform video constraints differ: Instagram reels 3 to 90 seconds and 100MB; Facebook reels 3 to 90 seconds and 1GB; TikTok 3 to 600 seconds and 287MB; YouTube up to 500MB. Check `get_social_platform_specs` when in doubt.
 - Caption limits still apply (Instagram and TikTok 2200, YouTube 5000).
 - schedule_at without an offset means Australia/Perth; past times are rejected.
 - schedule_at at draft time from a review-first connection or without publish permission saves the post as pending_approval silently, with the reason in notes[]. The standalone `schedule_social_post` call converts to pending_approval for a review-first connection (reason in a singular note field), but a caller lacking publish permission gets a hard error instead. Report the true status from the response.
@@ -97,7 +97,7 @@ A finished 9:16 MP4 on a public https URL. MCP does not render video. If the fil
 - Missing connection note: the reel will fail on that platform at publish; have the user connect it in Marketing Lab.
 
 ### Done means
-A reel post exists in the requested state with exactly one video, correct platforms, the destination account named to the user, first_comment only where supported, and any admin-pilot, expiry or approval caveats reported to the user verbatim.
+A reel post exists in the requested state with exactly one video, correct platforms, the destination account named to the user, first_comment only where supported, and any TikTok draft, expiry or approval caveats reported to the user verbatim.
 
 ## Part 3: Get media into and out of the library
 
