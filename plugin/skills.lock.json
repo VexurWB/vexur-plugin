@@ -1,6 +1,6 @@
 {
-  "content_hash": "3ab310b86273bf0bf59ea45768ebab1fdd4253d5f48dd07e0a867ff9a5f02db2",
-  "plugin_version": "1.0.11",
+  "content_hash": "6ffe7925838315ced697c182c3e201fd77c414284c52c1a7a7a5246f2e58aacb",
+  "plugin_version": "1.0.12",
   "skills": [
     {
       "name": "org-role",
@@ -85,7 +85,7 @@
     {
       "name": "portfolio-blueprint",
       "key": "portfolio-blueprint",
-      "version": 3
+      "version": 6
     }
   ]
 }
