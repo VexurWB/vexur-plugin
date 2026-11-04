@@ -1,6 +1,6 @@
 {
-  "content_hash": "6ffe7925838315ced697c182c3e201fd77c414284c52c1a7a7a5246f2e58aacb",
-  "plugin_version": "1.0.12",
+  "content_hash": "895bd7177e901a24e74963898b06ef34f33bb112159bb5577163aac4742f4979",
+  "plugin_version": "1.0.13",
   "skills": [
     {
       "name": "org-role",
@@ -55,7 +55,7 @@
     {
       "name": "property-analysis",
       "key": "property-analysis",
-      "version": 11
+      "version": 12
     },
     {
       "name": "vexur-reel-editor",
@@ -66,6 +66,11 @@
       "name": "website-editor",
       "key": "website-editor",
       "version": 4
+    },
+    {
+      "name": "airbnb-analysis",
+      "key": "airbnb-analysis",
+      "version": 1
     },
     {
       "name": "project-feasibility",
@@ -86,6 +91,11 @@
       "name": "portfolio-blueprint",
       "key": "portfolio-blueprint",
       "version": 6
+    },
+    {
+      "name": "sales-agent",
+      "key": "sales-agent",
+      "version": 1
     }
   ]
 }
