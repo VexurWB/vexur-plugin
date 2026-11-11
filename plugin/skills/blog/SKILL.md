@@ -3,7 +3,7 @@ name: blog
 description: "Draft a blog post from the account's blog template into the Website Lab blog CMS with the SEO fields, images and campaign link filled, then release it only on the user's say-so. Use when the user wants a blog post written, scheduled or published."
 ---
 
-> Vexur's `blog` playbook, version 4. With the Vexur connector connected, call `get_skill` with key `blog` first and follow that live version wherever the two differ.
+> Vexur's `blog` playbook, version 5. With the Vexur connector connected, call `get_skill` with key `blog` first and follow that live version wherever the two differ.
 
 # Blog: draft, structure and release a post
 
@@ -35,3 +35,17 @@ Writing or updating a blog post in the Website Lab blog CMS: a new article, a po
 
 ## Done means
 A draft exists with title, excerpt, slug, tags and SEO fields filled, the body renders as sections in the editor, the campaign link is set when there is one, and it was published or scheduled only on the user's say-so with the outcome read back from the tool.
+
+
+<!-- design-section-v1 -->
+## Design
+
+Make the post easy to scan.
+
+- Structure: a short opening paragraph that says what the reader will get, then h2 sections of two to four short paragraphs each, with an h3 only inside a long section. End with a short takeaway and one next step. Do not repeat the post title as a heading in the body, because the page already shows it.
+- Lists and tables: use a bullet list for three or more parallel points and a numbered list for steps. Use a table for any comparison of numbers, such as suburbs or loan options. Keep a table to five columns or fewer.
+- Pictures: use pictures the team already has. Call list_media and use a file's file_url as the image address in an img with alt text. The featured image is set in the blog editor, so tell the person which picture you would use. Never link a picture from another website.
+- Quotes: use a blockquote for a client's or an expert's words, and only with their permission.
+- Search and sharing: write a meta_title of about 60 characters or fewer, a meta_description of about 155 characters or fewer that makes someone want to click, and an excerpt of one or two sentences. Use two to four tags.
+- House layout: a body wrapped in <div class="vx-post"> is stored as Vexur's house layout with its own stylesheet. Use it only when the person asks for that look, and never add a style block. Otherwise send plain headings, paragraphs, lists, blockquotes, images and tables and they become editable sections.
+- Finish: call list_blog_templates first if the person has a standard structure, create the draft, tell the person where to review it, and publish only when they say so.

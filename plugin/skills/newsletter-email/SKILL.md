@@ -3,7 +3,7 @@ name: newsletter-email
 description: "Draft a newsletter issue to the consent-aware subscriber audience or an email inside a hub campaign, with the audience read first and the send left to the user in the app. Use when the user wants a newsletter or an email to a list."
 ---
 
-> Vexur's `newsletter-email` playbook, version 2. With the Vexur connector connected, call `get_skill` with key `newsletter-email` first and follow that live version wherever the two differ.
+> Vexur's `newsletter-email` playbook, version 3. With the Vexur connector connected, call `get_skill` with key `newsletter-email` first and follow that live version wherever the two differ.
 
 # Newsletter issues and campaign emails
 
@@ -40,3 +40,18 @@ Writing email that goes to a list: a newsletter issue to the subscriber audience
 
 ## Done means
 A draft issue or campaign email exists with subject, preheader and body, the audience count was read before writing, any send time is stored without arming (campaign email) or left unset (newsletter), and the user knows the send is theirs to make in the app.
+
+
+<!-- design-section-v1 -->
+## Design
+
+Write the email so it looks designed, not typed.
+
+- Structure: one idea per section. Open with a short h2 headline, then one line that says why this matters to the reader, then the body, then one button. Keep paragraphs to two or three short sentences and use an h2 for each new section.
+- Pictures: use only pictures the team already has. Call list_media and use a file's file_url (an https address) as the image address. Never link a picture from another website, and never use an http address. Every img needs alt text and a width of 520 or less.
+- Layout: tables with role="presentation" and inline styles only. No flexbox, no grid, no script, no video tag, no style block. Keep the whole email under about 80KB so Gmail does not cut it off.
+- Break up text: after three short paragraphs, put in a picture, a row of figures built as a small table, or a quote. Never leave a wall of text.
+- One button: one main call to action per email, and its words say what happens next, such as Book a free call. Use exactly this markup and keep class="agent-cta", because the team's brand shell repaints it in the team's button colour on send: <div data-cta-button="" data-email-block="button" style="display:flex;justify-content:flex-start;margin:16px 0;"><a href="https://..." class="agent-cta" style="display:inline-block;padding:12px 24px;background:#0d3a2a;color:#ffffff !important;text-decoration:none;border-radius:6px;font-weight:600;font-size:14px;">Label</a></div>
+- Colour and fonts: leave text colour, font family and font size unset so the brand shell's own apply. Never invent a brand colour.
+- Body only: the logo header, footer, signature and unsubscribe link are added on send, so never write them.
+- Finish: save the draft, tell the person where to review it, and never say it has been sent.
