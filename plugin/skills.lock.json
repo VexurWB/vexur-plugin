@@ -1,6 +1,6 @@
 {
-  "content_hash": "27e65b96f860e80590633b99690f37d2b00e6826cdd2c248137914f20a5651ed",
-  "plugin_version": "1.0.14",
+  "content_hash": "1dce1fabc0bd4d1db85f8b75f514cd2f83314b4dee27de4d0500b018d3c97556",
+  "plugin_version": "1.0.15",
   "skills": [
     {
       "name": "org-role",
@@ -10,7 +10,7 @@
     {
       "name": "task-router",
       "key": "task-router",
-      "version": 19
+      "version": 20
     },
     {
       "name": "landing-page-builder",
@@ -30,7 +30,7 @@
     {
       "name": "campaign",
       "key": "campaign",
-      "version": 11
+      "version": 12
     },
     {
       "name": "newsletter-email",
