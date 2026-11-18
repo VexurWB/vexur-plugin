@@ -3,7 +3,7 @@ name: task-router
 description: "Start here: routes any Vexur task to the right area playbook and carries the shared conventions (draft, schedule, publish and launch verbs, Perth-default times, and what each connection may publish). Use first whenever the owning playbook is not obvious."
 ---
 
-> Vexur's `task-router` playbook, version 20. With the Vexur connector connected, call `get_skill` with key `task-router` first and follow that live version wherever the two differ.
+> Vexur's `task-router` playbook, version 21. With the Vexur connector connected, call `get_skill` with key `task-router` first and follow that live version wherever the two differ.
 
 # Start here: routing and conventions
 
@@ -14,7 +14,7 @@ First call on any Vexur task when the owning playbook is not obvious, and the ho
 - Landing pages, funnels, opt-in pages, reusable lead forms, and page leads: `get_skill` landing-page-builder. Any landing page task also starts at `get_landing_page_workflow`.
 - Social posts, stories, reels, and media into or out of the library: `get_skill` social.
 - Editing a video in Reel Studio (analysing footage, cutting and captioning a reel project, hook variations, background exports): `get_skill` vexur-reel-editor. Scheduling or publishing the finished reel stays with social.
-- Campaigns of any kind, campaign audiences and targeting, email blasts, SMS drafts, paid ad drafts, nurture sequences, launches, and campaign reporting: `get_skill` campaign. It also disambiguates the three campaign concepts (hub campaigns, ad-builder drafts, platform-synced ad campaigns). Paid ads on Meta, Google or LinkedIn: ask the goal, destination and budget first. Publishing starts spending.
+- Campaigns of any kind, campaign audiences and targeting, email blasts, SMS drafts, paid ad drafts, nurture sequences, launches, and campaign reporting: `get_skill` campaign. It also disambiguates the three campaign concepts (hub campaigns, ad-builder drafts, platform-synced ad campaigns). Paid ads on Meta, Google or LinkedIn: call get_skill with key ads first. Ask the goal, where people land and the budget before any draft. Publishing starts spending.
 - New enquiries, unworked leads, and follow-up: `get_skill` lead-followup.
 - Contacts, companies, deals and pipelines, the Action Centre task list, saved segments, buyer briefs, and debugging an automation that misbehaves: `get_skill` crm.
 - Building or changing an automation ("when this happens, do that", follow-ups, date or weekly triggers): `get_skill` automations. Note that where a person is up to is the deal's stage, not the contact's lifecycle_stage.

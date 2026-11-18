@@ -1,9 +1,9 @@
 ---
 name: campaign
-description: "Plans, targets, assembles, launches and reports a multi-channel hub campaign: container and audience, email, SMS and paid ad drafts, linked pages, blogs and sequences, launch, then performance. Use when the user wants to run or review a campaign, send an email blast, set a campaign audience, or draft paid ads. Paid ads: ask the goal, destination and budget first. MCP publishes ads with publish_ad_campaign after a clear yes (Meta spends at publish; Google and LinkedIn need go_live: true); it never sends SMS."
+description: "Plans, targets, assembles, launches and reports a multi-channel hub campaign: container and audience, email, SMS and paid ad drafts, linked pages, blogs and sequences, launch, then performance. Use when the user wants to run or review a campaign, send an email blast, set a campaign audience, or draft paid ads. Paid ads: call get_skill with key ads first. It never sends SMS."
 ---
 
-> Vexur's `campaign` playbook, version 12. With the Vexur connector connected, call `get_skill` with key `campaign` first and follow that live version wherever the two differ.
+> Vexur's `campaign` playbook, version 13. With the Vexur connector connected, call `get_skill` with key `campaign` first and follow that live version wherever the two differ.
 
 # Run a multi-channel campaign
 
@@ -12,7 +12,7 @@ Any hub campaign work: planning a push, setting the audience, sending an email b
 
 ## The three campaign concepts (never conflate)
 - Hub campaigns: planning containers in Marketing Lab that everything links to (`create_campaign`, `list_campaigns`, `update_campaign`, `get_campaign_readiness`, `launch_campaign`).
-- Ad-builder drafts: paid ad specs created by `create_ad_campaign_draft` and edited by `update_ad_campaign_draft`. A draft spends nothing. `publish_ad_campaign` (confirm_spend: true) creates the real ad on Meta, Google or LinkedIn. Do not pass confirm_spend: true, for any platform, until the person has said yes to the read-back in section C. On Meta, confirm_spend: true is itself the spend approval: Meta ignores go_live and the ad starts delivering at publish. Google and LinkedIn also start spending at publish, but publish refuses until go_live: true is passed (unless the start date is in the future). A future start date makes everything wait for that date.
+- Ad-builder drafts: paid ad specs created by `create_ad_campaign_draft` and edited by `update_ad_campaign_draft`. A draft spends nothing. `publish_ad_campaign` (confirm_spend: true) creates the real ad on Meta, Google or LinkedIn, and the person's yes to the read-back must come first (see the `ads` playbook). All three platforms start at publish, or on the start date when it is in the future. Google and LinkedIn also need go_live: true when there is no future start date.
 - Platform-synced ad campaigns: read-only mirrors of live Meta, Google and LinkedIn campaigns (`list_ad_campaigns` source synced, `get_ad_performance`).
 
 ## Prerequisites
@@ -35,36 +35,14 @@ Every content piece exists as a draft before launch (launch publishes and arms w
 
 ### C. Paid piece
 
-Paid ads spend real money, so the questions come before the draft. Before you create any draft, ask the person these four things and wait for the answers. Do not guess, and do not fill a gap with a default. If an answer is partial (a budget with no dates, an objective with no destination), ask again for the missing part.
+Paid ads spend real money. The questions to ask first, the draft fields, the read-back, the checks after publish and the things that go wrong are all in one place: the `ads` playbook (`get_skill` with key `ads`). Read it before any paid draft and follow it. This section holds only what is specific to a hub campaign.
 
-1. What do we pay for? One action: a form fill, a booking, a phone call, a message, visits to a page, or video views or likes. This sets the objective. There is no default objective: the tool refuses to create a draft without one. A messaging block alone implies a messages ad, but still ask. If the person asks for leads and a form on their own page, confirm that the page tracks the Lead event (conversion_event) rather than assuming it does.
-2. Where do people land? Four choices: a Facebook instant form (platform_config.meta.lead_form_id, leads ads only, Meta only), the customer's own page, a booking page, or messages (objective messages with the messaging block, no destination_url needed, Meta only). Every choice except messages and an instant form needs the page address. LinkedIn and website ads cannot be published without one.
-3. How much? A budget in dollars and the start and end dates. A daily budget works on every platform. A total (lifetime) budget works on Meta only, because Google Ads refuses a total budget. Do not offer a total budget for Google.
-4. Which campaign does it belong to? Use `list_campaigns` and pass its id as `hub_campaign_id`.
-
-Then follow these steps.
-
-1. `list_media` for the media_ids.
-2. `create_ad_campaign_draft` with hub_campaign_id, name, platforms (meta_ads, google_ads, linkedin_ads), the objective the person chose, budget, budget_type (AUD), copy fields (headline, primary_text, ad_description, cta_type, destination_url, or the messaging block, or the lead form id), dates and media_ids. There is no default objective; the tool refuses to create a draft without one.
-3. ALWAYS pass targeting. An empty targeting graph makes Meta run the ad across the whole country, and the tool warns when you leave it out. Use targeting.locations with radius_km for a service area, or targeting.country for a national push. Every Meta location needs latitude and longitude or publish refuses, and a Meta ad needs a location or country AU.
-4. housing_category defaults to TRUE and is correct for property, real estate and buyers-agent ads. It sets Meta's Special Ad Category HOUSING, which strips age, gender and postcode targeting and forces a 15km minimum radius. Set it false only for an ad that is genuinely not about housing, and say why. Read back its real setting and tell the person.
-5. ALWAYS pass hub_campaign_id when assembling a campaign: omitting it silently creates a brand new hub campaign named after the ad, the main duplicate trap.
-6. Unknown or foreign media_ids do not error; they are silently omitted. Compare the returned creative_ids length with the media_ids you sent. If a media_ids mismatch shows, re-run `list_media` and re-attach the missing ones.
-7. `update_ad_campaign_draft` merges copy rather than replacing it and returns `configured`: false means the ad cannot publish yet and the notes say what is missing (creatives, copy, destination URL). It refuses live, publishing and archived specs, because editing those desynchronises Vexur from the platform.
-8. Likes or engagement: do not use these for a campaign whose goal is leads, traffic or sales. The draft tool accepts it with a warning, and publish refuses it, only when the ad is likes and comments inside a hub campaign whose goal is leads, traffic or sales. Unless the person has said in their own words that they want likes, ask them. Pass their exact words in platform_config.meta.engagement_acknowledgement. Never write it for them and never pass true.
-9. Before `publish_ad_campaign`, read back in plain English: the goal, the objective, where the click goes, the creative and copy (headline and primary text), the targeting area, the budget and the dates. Then say one of two things. If there is no future start date: "This goes live and starts spending as soon as you say yes." If there is one: "This starts on <date> and spends from then." Get a clear yes. Do not pass confirm_spend: true, for any platform, until the person has said yes to that read-back. For Google and LinkedIn, also pass go_live: true on publish, and only after that yes.
-10. After publish, quote every warning word for word before you say the ad is set up. Read data.warnings and the notes (the draft warnings: whole country, Advantage+ audience, automatic placements, engagement ad, missing latitude or longitude) and data.platform_warnings (the platform's own warnings). A warning such as "Meta will not be told when someone fills in your form" means the ad cannot learn who converts. If a warning says that, tell the person before you say the ad is set up, and do not call the ad ready. Fix it or tell them. Also relay the publish note about missing 4:5 or 9:16 creatives and the currency mismatch note.
-11. `publish_ad_campaign` returns status, activated, platforms, notes, warnings, platform_warnings and ads_url. It does not return still_not_delivering or blockers. After publish, check `list_ad_campaigns` (and `get_campaign_readiness`) and say the ad is live only when the ad itself, not only the campaign, reads active. If you use `resume_ad_campaign`, read still_not_delivering on its answer.
-12. Check results after launch. `get_ad_performance` covers synced campaigns only, so a fresh ad has no numbers yet: use `list_ad_campaigns` first to see whether it has synced and is delivering, and wait for the next sync before reading numbers. Once it has synced, call `get_ad_performance` for spend, results and cost per result, and `get_campaign_performance` for the whole hub campaign including ads made in Ads Manager. Look after the first full day of delivery and again after a few days. If it is spending with no result, tell the person, then check the objective, the conversion event and the page, in that order. Any spend limit you suggest before judging an ad is a rule of thumb the person must agree to. Do not state a dollar figure as if the platform required it.
-
-Google and LinkedIn, and publishing:
-- `publish_ad_campaign` publishes Google and LinkedIn as well as Meta, and they start spending at publish. Publish refuses until go_live: true is passed after the person says yes to the spend (unless the start date is in the future). Meta ignores go_live.
-- Google: google-ads-create supports SEARCH, DISPLAY and PERFORMANCE_MAX (the campaign_type field). Search ads need 3 headlines (30 characters at most), 2 descriptions (90 at most), at least 1 keyword and an https:// address. A total budget is refused, so use a daily one. If the tool refuses, read the reason to the person. Do not work around it.
-- LinkedIn: ask for the destination URL. Nothing is substituted for a missing one. Audience choices (industry, seniority, job function) must be ids or urn:li: values, because names are refused, and company_targeting is not supported. If the tool refuses, read the reason to the person.
-- Messages ads run on Meta only. Google and LinkedIn refuse them.
-- Publish also refuses when this connection or the caller lacks Send / publish for ads, when the spec is already live, and when creatives, copy or the objective are missing.
-- A spec marked partially_live can be published again, and the platforms already live are skipped. A draft marked publishing for under 10 minutes must be left alone: do not publish it again.
-- `launch_campaign` never publishes paid drafts, and that is deliberate, so a multi-channel launch cannot start spending money by accident. Paid goes live only through `publish_ad_campaign` after the yes in step 9, or in Marketing Lab.
+1. `create_campaign` needs a goal (leads, traffic, awareness, engagement or sales). Ask the person. There is no default.
+2. Pass `hub_campaign_id` on every ad draft (`list_campaigns` for the id). Leaving it out silently creates a new hub campaign named after the ad, which is the main duplicate trap.
+3. The ad's goal must match the hub campaign's goal. The `ads` playbook says what to do when it does not (`goal_key` is the ad's goal; `hub_goal_acknowledgement` carries the person's own words).
+4. `list_media` for the media ids before the draft, and see C2 for the sizes to ask for. Unknown or foreign media ids are silently left out, so compare the returned creative count with what you sent.
+5. `launch_campaign` never publishes paid drafts, and that is deliberate, so a multi-channel launch cannot start spending money by accident. Paid ads go live only through `publish_ad_campaign` after the person's clear yes (see `ads`), or when a person releases them in Marketing Lab.
+6. Google Ads runs Search ads only. A total (lifetime) budget works on Facebook, Instagram and LinkedIn. Google needs a daily budget.
 
 ### C2. Creative sizes (say them BEFORE the user uploads)
 Meta accepts a narrow band per placement and crops anything outside it. Advantage+ placements spans about 30 placement types, so one asset is the wrong shape nearly everywhere it runs. Tell the user these numbers up front, do not wait for a bad upload.
@@ -106,7 +84,7 @@ Meta accepts a narrow band per placement and crops anything outside it. Advantag
 - Launch reads linked content from both the junction table and hub_campaign_id, so anything created with hub_campaign_id is picked up. Still verify the counts in the launch response.
 - `get_campaign_performance` returns linked_ads including ads created in Ads Manager and attributed here (origin platform). A live budgeted ad you did not author still counts against the campaign.
 - `get_ad_performance` covers synced campaigns only; a fresh draft or a fresh ad has no metrics by definition.
-- Paid ads go live only through `publish_ad_campaign` after the person's yes to the read-back (section C step 9), or when a person releases them in Marketing Lab. Meta spends at publish, so confirm_spend: true is itself the spend approval.
+- Paid ads go live only through `publish_ad_campaign` after the person's yes to the read-back (the `ads` playbook), or when a person releases them in Marketing Lab. Meta spends at publish (or on a future start date), so confirm_spend: true is itself the spend approval.
 - Deleting library media that an ad creative references breaks the creative; keep campaign media in the library.
 - Meta posts without a verified public URL land partially_published. The campaign being active does not mean every piece shipped.
 
@@ -123,7 +101,7 @@ Meta accepts a narrow band per placement and crops anything outside it. Advantag
 One container with no duplicate, an audience actually set (or the user told plainly that it targets everyone), every piece attached and accounted for, housing compliance correct on any property ad, an explicit user confirmation before launch, every count and failure reason reported with the notes, SMS flagged for manual release in Marketing Lab, and paid ads released by `publish_ad_campaign` only after a clear yes to the read-back (or by a person in Marketing Lab), and follow-up pointed at `get_campaign_unworked_leads`.
 
 ### Click-to-message ads and replies
-- `create_ad_campaign_draft` / `update_ad_campaign_draft` accept `objective: "messages"` with a `messaging` block `{ destination: messenger | instagram | whatsapp, welcome_message, quick_replies? (max 4, 80 characters each) }`. destination_url is optional on a messages ad. Meta only.
+- `create_ad_campaign_draft` / `update_ad_campaign_draft` take `goal_key: "messages"` and `destination: { kind: "messages_app", messaging_app: messenger | instagram | whatsapp }`, plus the `messaging` block `{ destination: messenger | instagram | whatsapp, welcome_message, quick_replies? (max 4, 80 characters each) }`. The two apps must match. No web address is needed on a messages ad. Meta only. (`objective` is only an old alias: do not send it.)
 - A messages ad opens conversations, so something has to answer them: attach a rule or journey with `attach_auto_reply_to_campaign` (or `hub_campaign_id` on the rule/journey). `get_campaign_readiness` shows a Replies programme that warns when nothing is attached; it never blocks launch.
 - Reading and answering those conversations is the `conversations` skill (`get_skill` conversations).
 - `create_sequence` also takes `sms` steps (text; consent warning applies) and, on the `social_dm_received` trigger only, `social_dm` steps (message; sends inside Meta's messaging window).
