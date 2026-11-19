@@ -1,6 +1,6 @@
 {
-  "content_hash": "3670b9d4e35e2b3cc5661e860c5e81336740cdb066a4dd5a4547befa93612838",
-  "plugin_version": "1.0.16",
+  "content_hash": "03c6bf6dfd24474c9da0bdc66a622c74734c944437466a85f7e2dac4874691f1",
+  "plugin_version": "1.0.17",
   "skills": [
     {
       "name": "org-role",
@@ -30,12 +30,12 @@
     {
       "name": "campaign",
       "key": "campaign",
-      "version": 13
+      "version": 15
     },
     {
       "name": "ads",
       "key": "ads",
-      "version": 2
+      "version": 4
     },
     {
       "name": "newsletter-email",

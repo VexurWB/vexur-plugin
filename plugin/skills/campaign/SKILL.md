@@ -3,7 +3,7 @@ name: campaign
 description: "Plans, targets, assembles, launches and reports a multi-channel hub campaign: container and audience, email, SMS and paid ad drafts, linked pages, blogs and sequences, launch, then performance. Use when the user wants to run or review a campaign, send an email blast, set a campaign audience, or draft paid ads. Paid ads: call get_skill with key ads first. It never sends SMS."
 ---
 
-> Vexur's `campaign` playbook, version 13. With the Vexur connector connected, call `get_skill` with key `campaign` first and follow that live version wherever the two differ.
+> Vexur's `campaign` playbook, version 15. With the Vexur connector connected, call `get_skill` with key `campaign` first and follow that live version wherever the two differ.
 
 # Run a multi-channel campaign
 
@@ -27,7 +27,7 @@ Every content piece exists as a draft before launch (launch publishes and arms w
 4. Declaring channel `sms` returns a note: MCP can draft SMS but never sends it.
 
 ### B. Email piece
-1. `create_email_campaign_draft` with hub_campaign_id, subject and html_body. Optional: preheader, description, goal (defaults to leads), audience, schedule_at. Omit hub_campaign_id ONLY when the email is the whole campaign; the tool then creates the container for you and returns campaign_created true.
+1. `create_email_campaign_draft` with hub_campaign_id, subject and html_body. Optional: preheader, description, audience, schedule_at. goal is needed when the email starts a new campaign (no hub_campaign_id): ask the person, there is no default. Omit hub_campaign_id ONLY when the email is the whole campaign; the tool then creates the container for you and returns campaign_created true.
 2. With no `audience` argument the email inherits the campaign's targeting when it has any, otherwise the consent-aware newsletter audience. Check the returned `audience` object and notes[] rather than assuming.
 3. Explicit audience types and their required companion fields: newsletter (no companion), all, tags (audience.tags), contact_ids (audience.ids), segment_id (audience.segment_id). The tool rejects a type whose companion is missing; supply the companion, never switch to type all as a workaround.
 4. schedule_at is ISO 8601; no offset means Australia/Perth; past times are rejected. When the caller lacks publish permission on the team, the email saves as a DRAFT instead and the reason appears in notes[]; the call still succeeds. Report the stored status, not the intent.
@@ -42,7 +42,7 @@ Paid ads spend real money. The questions to ask first, the draft fields, the rea
 3. The ad's goal must match the hub campaign's goal. The `ads` playbook says what to do when it does not (`goal_key` is the ad's goal; `hub_goal_acknowledgement` carries the person's own words).
 4. `list_media` for the media ids before the draft, and see C2 for the sizes to ask for. Unknown or foreign media ids are silently left out, so compare the returned creative count with what you sent.
 5. `launch_campaign` never publishes paid drafts, and that is deliberate, so a multi-channel launch cannot start spending money by accident. Paid ads go live only through `publish_ad_campaign` after the person's clear yes (see `ads`), or when a person releases them in Marketing Lab.
-6. Google Ads runs Search ads only. A total (lifetime) budget works on Facebook, Instagram and LinkedIn. Google needs a daily budget.
+6. Google Ads runs Search ads only. A total (lifetime) budget works on Facebook and Instagram only. Google and LinkedIn need a daily budget.
 
 ### C2. Creative sizes (say them BEFORE the user uploads)
 Meta accepts a narrow band per placement and crops anything outside it. Advantage+ placements spans about 30 placement types, so one asset is the wrong shape nearly everywhere it runs. Tell the user these numbers up front, do not wait for a bad upload.
@@ -93,7 +93,7 @@ Meta accepts a narrow band per placement and crops anything outside it. Advantag
 - content_failed above zero: quote failure_messages, fix the named pieces (connection, media, caption), publish them individually; do not re-launch.
 - "audience.tags is required for type tags" (and the contact_ids, segment_id and pipeline_stage_id equivalents): supply the companion field.
 - "hub_campaign_id was not found (or is not accessible)": `list_campaigns` and use a real id, or omit only for a genuinely standalone piece.
-- "Only draft, failed or paused ad specs can be edited here" (or a refusal naming a live, publishing or archived spec): the ad is live or being published; changes belong in Marketing Lab > Ads. Publish also accepts a partially_live spec, which the edit tool does not.
+- "Only draft, failed or paused ad specs can be edited here (current status: ...). Edit live ads in Marketing Lab > Ads.": the ad is live, being published, partly live or archived, so changes belong in Marketing Lab > Ads. Publish is wider than edit: it also accepts a partially_live spec ("Only draft, failed, paused or partly live ad specs can be published"), and the platforms already live are skipped.
 - "This post is not attached to a Website Lab site": attach it in the blog editor before publishing.
 - blockers[] non-empty at preflight: fix each one before launching, not after.
 
