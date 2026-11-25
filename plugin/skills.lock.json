@@ -1,6 +1,6 @@
 {
-  "content_hash": "6c9beb4f272f345dab6631875d40d1ed8d2e4b59878c0f5ac4b095cb6ce7d199",
-  "plugin_version": "1.0.18",
+  "content_hash": "bc2945a0433e2ba4ad2c7a02ca15ee81902cc18e028aa0b7d269d48e00699b49",
+  "plugin_version": "1.0.19",
   "skills": [
     {
       "name": "org-role",
@@ -40,7 +40,7 @@
     {
       "name": "newsletter-email",
       "key": "newsletter-email",
-      "version": 3
+      "version": 4
     },
     {
       "name": "contacts-and-deals",
@@ -83,9 +83,14 @@
       "version": 2
     },
     {
+      "name": "ai-avatar-video",
+      "key": "ai-avatar-video",
+      "version": 1
+    },
+    {
       "name": "blog",
       "key": "blog",
-      "version": 5
+      "version": 6
     },
     {
       "name": "ba-property-pipeline",
@@ -100,7 +105,7 @@
     {
       "name": "sales-agent",
       "key": "sales-agent",
-      "version": 1
+      "version": 2
     }
   ]
 }

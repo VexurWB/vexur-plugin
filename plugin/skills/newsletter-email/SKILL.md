@@ -3,7 +3,7 @@ name: newsletter-email
 description: "Draft a newsletter issue to the consent-aware subscriber audience or an email inside a hub campaign, with the audience read first and the send left to the user in the app. Use when the user wants a newsletter or an email to a list."
 ---
 
-> Vexur's `newsletter-email` playbook, version 3. With the Vexur connector connected, call `get_skill` with key `newsletter-email` first and follow that live version wherever the two differ.
+> Vexur's `newsletter-email` playbook, version 4. With the Vexur connector connected, call `get_skill` with key `newsletter-email` first and follow that live version wherever the two differ.
 
 # Newsletter issues and campaign emails
 
@@ -55,3 +55,13 @@ Write the email so it looks designed, not typed.
 - Colour and fonts: leave text colour, font family and font size unset so the brand shell's own apply. Never invent a brand colour.
 - Body only: the logo header, footer, signature and unsubscribe link are added on send, so never write them.
 - Finish: save the draft, tell the person where to review it, and never say it has been sent.
+
+
+<!-- design-tools-v1 -->
+## Design tools
+
+- Start with get_brand_kit. It returns the team's header colour, button colour, fonts and logo. Use those colours for a banner or a coloured section and never invent one.
+- Build every banner, row of cards, image and text, figures row, quote box, coloured section, button, image and video with build_email_block, and paste its html into the body. Do not hand-write the tables. Call get_skill with key email-design for the full list and a worked example.
+- Change one part instead of rewriting: get_email_outline numbers the parts of a draft, and edit_email_parts replaces, inserts, removes or moves a part by number and changes the subject and preheader. It only works on drafts and the team's own templates.
+- Before you say it is ready, call preview_email_design. It shows the email inside the team's brand shell and lists problems in plain words. Fix everything marked Fix and show the person the preview.
+- generate_image can make a new picture, but it costs money: it quotes the price first and only makes the picture after the person agrees. Prefer list_media for pictures the team already has.

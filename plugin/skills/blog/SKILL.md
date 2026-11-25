@@ -3,7 +3,7 @@ name: blog
 description: "Draft a blog post from the account's blog template into the Website Lab blog CMS with the SEO fields, images and campaign link filled, then release it only on the user's say-so. Use when the user wants a blog post written, scheduled or published."
 ---
 
-> Vexur's `blog` playbook, version 5. With the Vexur connector connected, call `get_skill` with key `blog` first and follow that live version wherever the two differ.
+> Vexur's `blog` playbook, version 6. With the Vexur connector connected, call `get_skill` with key `blog` first and follow that live version wherever the two differ.
 
 # Blog: draft, structure and release a post
 
@@ -49,3 +49,16 @@ Make the post easy to scan.
 - Search and sharing: write a meta_title of about 60 characters or fewer, a meta_description of about 155 characters or fewer that makes someone want to click, and an excerpt of one or two sentences. Use two to four tags.
 - House layout: a body wrapped in <div class="vx-post"> is stored as Vexur's house layout with its own stylesheet. Use it only when the person asks for that look, and never add a style block. Otherwise send plain headings, paragraphs, lists, blockquotes, images and tables and they become editable sections.
 - Finish: call list_blog_templates first if the person has a standard structure, create the draft, tell the person where to review it, and publish only when they say so.
+
+
+<!-- design-tools-v1 -->
+## Design tools
+
+- Start with get_brand_kit. A house layout post (a body in <div class="vx-post">) is drawn in the account's own blog colours from Blog settings, so you do not choose colours.
+- Change a draft without re-sending it: get_blog_post numbers its blocks (add include_preview: true for a page you can show the person), and update_blog_post_draft changes the title, excerpt, tags, SEO fields, featured image or the whole body, or replaces, inserts, removes or moves one block by number. It only works on drafts and scheduled posts.
+- Extra blocks you can write as HTML, each becomes one editable block:
+  - A note: <div class="info-card tip"><div class="info-card-title">Title</div><div class="info-card-content">Words</div></div>. The class tip, warning or success sets the icon; leave it off for a plain note.
+  - A call to action: <div class="cta-block"><h3>Heading</h3><p>Words</p><a class="cta-button" href="https://...">Button words</a></div>
+  - A pull quote: <blockquote class="pull-quote">The words<cite>Who said it</cite></blockquote>
+  - A video: <div class="video-block" data-video-url="https://www.youtube.com/watch?v=..."></div>
+- generate_image can make a new picture, but it costs money: it quotes the price first and only makes the picture after the person agrees. Prefer list_media for pictures the team already has.
